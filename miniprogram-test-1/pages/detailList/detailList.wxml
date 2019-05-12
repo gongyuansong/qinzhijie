@@ -1,0 +1,13 @@
+
+<view style='height: 80rpx'></view>
+<view>
+<view></view>
+ <block wx:for='{{bookDetailList}}'>
+   <!-- data-*属性在触发事件时获取  -->
+   <view class='singleTrade' hover-class='item-press' catchtap='' data-id='{{item.id}}'>
+     <view class='a'>
+       <view class='name' style='color: green'>{{item.partName}}</view>
+     </view>
+   </view>
+ </block>
+</view>

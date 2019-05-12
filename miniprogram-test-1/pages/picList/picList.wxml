@@ -1,0 +1,12 @@
+<view class="schoollist">
+  <block wx:for="{{picList}}" wx:key="item">
+    <view class="school-list">
+      <navigator url="/pages/photo/photo?id={{item.id}}">
+        <view class="school-list-info">
+          <image class="school-list-photo" src='http://47.105.212.81:8082/qinzhijie/images/{{item}}'></image>
+         <text class="school-list-desc">{{index + 1}}</text>
+          </view>
+      </navigator>
+    </view>
+  </block>
+</view>
