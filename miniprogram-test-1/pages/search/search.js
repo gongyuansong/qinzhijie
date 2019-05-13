@@ -56,14 +56,16 @@ Page({
       }
     })  
   },
-  showBookDetail() {
+  showBookDetail(e) {
+    var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../book/book'
+      url: '../book/book?bookId=' + id
     })
   },
-  showLyricDetail() {
+  showLyricDetail(e) {
+    var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../lyric/lyric'
+      url: '../lyric/lyric?lyricId=' + id
     })
   }
 })

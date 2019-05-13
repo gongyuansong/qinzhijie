@@ -36,5 +36,10 @@ Page({
         }
       }
     })  
+  },
+  showPic(e){
+    wx.navigateTo({
+      url: '../pic/pic?url=' + e.currentTarget.dataset.str
+    })
   }
 })

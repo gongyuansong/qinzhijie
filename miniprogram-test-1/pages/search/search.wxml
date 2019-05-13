@@ -10,26 +10,26 @@
 </view>
 <view style='height: 80rpx'></view>
 <view>
-<view >历代琴谱</view>
- <block wx:for='{{bookList}}'>
-   <!-- data-*属性在触发事件时获取  -->
-   <view class='singleTrade' hover-class='item-press' catchtap='showBookDetail' data-id='{{item.id}}'>
-     <view class='a'>
-       <view class='name' style='color: green'>{{item.bookName}}</view>
-     </view>
-   </view>
- </block>
+  <view>历代琴谱</view>
+  <block wx:for='{{bookList}}'>
+    <!-- data-*属性在触发事件时获取  -->
+    <view class='singleTrade' hover-class='item-press' catchtap='showBookDetail' data-id='{{item.id}}'>
+      <view class='a'>
+        <view class='name' style='color: green'>{{item.bookName}}</view>
+      </view>
+    </view>
+  </block>
 </view>
 
 <view style='height: 80rpx'></view>
 <view>
-<view>琴曲</view>
- <block wx:for='{{lyricList}}'>
-   <!-- data-*属性在触发事件时获取  -->
-   <view class='singleTrade' hover-class='item-press' catchtap='showLyricDetail' data-id='{{item.id}}'>
-     <view class='a'>
-       <view class='name' style='color: green'>{{item.musicofviolin}}</view>
-     </view>
-   </view>
- </block>
+  <view>琴曲</view>
+  <block wx:for='{{lyricList}}'>
+    <!-- data-*属性在触发事件时获取  -->
+    <view class='singleTrade' hover-class='item-press' catchtap='showLyricDetail' data-id='{{item.id}}'>
+      <view class='a'>
+        <view class='name' style='color: green'>{{item.musicofviolin}}</view>
+      </view>
+    </view>
+  </block>
 </view>

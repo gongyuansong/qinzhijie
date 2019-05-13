@@ -1,12 +1,12 @@
 <view class="schoollist">
-  <block wx:for="{{picList}}" wx:key="item">
+  <block wx:for="{{picList}}">
     <view class="school-list">
-      <navigator url="/pages/photo/photo?id={{item.id}}">
-        <view class="school-list-info">
+      <view>
+        <view class="school-list-info" catchtap='showPic' data-str="{{item}}">
           <image class="school-list-photo" src='http://47.105.212.81:8082/qinzhijie/images/{{item}}'></image>
-         <text class="school-list-desc">{{index + 1}}</text>
+         <text class="school-list-desc">第{{index + 1}}张</text>
           </view>
-      </navigator>
+      </view>
     </view>
   </block>
 </view>

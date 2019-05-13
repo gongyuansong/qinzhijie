@@ -1,7 +1,6 @@
 {
   "pages": [
-    "pages/picList/picList",
-    "pages/logs/logs"
+    "pages/picList/picList"
   ],
   "window": {
     "backgroundTextStyle": "light",
