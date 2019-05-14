@@ -13,7 +13,7 @@
   <view>历代琴谱</view>
   <block wx:for='{{bookList}}'>
     <!-- data-*属性在触发事件时获取  -->
-    <view class='singleTrade' hover-class='item-press' catchtap='showBookDetail' data-id='{{item.id}}'>
+    <view class='singleTrade' hover-class='item-press' bindtap='showBookDetail' data-id='{{item.id}}'>
       <view class='a'>
         <view class='name' style='color: green'>{{item.bookName}}</view>
       </view>

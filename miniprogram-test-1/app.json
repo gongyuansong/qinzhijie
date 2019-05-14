@@ -1,6 +1,13 @@
 {
   "pages": [
-    "pages/picList/picList"
+    "pages/index/index",
+    "pages/search/search",
+    "pages/bookDetail/bookDetail",
+    "pages/detailList/detailList",
+    "pages/picList/picList",
+    "pages/pic/pic",
+    "pages/book/book",
+    "pages/lyric/lyric"
   ],
   "window": {
     "backgroundTextStyle": "light",

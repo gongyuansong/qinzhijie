@@ -1,12 +1,9 @@
-//logs.js
-const util = require('../../utils/util.js')
-
 Page({
   data: {
     bookDetailList: []
   },
 
-  onLoad: function() {
+  onLoad: function (event) {
     var that = this
     wx.request({
       url: 'https://127.0.0.1:8081/bookDetail/getList',
@@ -15,7 +12,7 @@ Page({
         currentPage: "1",
         pageSize: "9999",
         queryObj: {
-          bookId: 157
+          bookId: event.bookId
         }
       },
       success: function(res) {
@@ -38,5 +35,11 @@ Page({
         }
       }
     })  
-  }
+  },
+  showPicList(e) {
+    var bookDetailId = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../picList/picList?bookDetailId=' + bookDetailId
+    })
+  },
 })

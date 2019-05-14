@@ -6,6 +6,7 @@ Page({
     picList: []
   },
   onLoad: function(event) {
+    console.log(event.bookDetailId + "AAAAAAAAAAAAAAAAAAAAAAAAA")
     var that = this
     wx.request({
       url: 'https://127.0.0.1:8081/bookDetail/getList',
@@ -14,7 +15,7 @@ Page({
         currentPage: "1",
         pageSize: "9999",
         queryObj: {
-          id: 64066
+          id: event.bookDetailId
         }
       },
       success: function(res) {

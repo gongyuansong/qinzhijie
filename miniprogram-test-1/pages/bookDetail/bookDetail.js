@@ -1,16 +1,10 @@
-//logs.js
-const util = require('../../utils/util.js')
 
 Page({
   data: {
-    bookDetailList: []
+    bookDetailList: [],
+    bookId: ''
   },
-  onLoad: function() {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return util.formatTime(new Date(log))
-      })
-    })
+  onLoad: function(event) {
   },
 
   //搜索框文本内容显示

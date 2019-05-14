@@ -7,7 +7,6 @@ Page({
   },
   onLoad: function(event) {
     var that = this
-    console.log(1111111 + event.url)
     that.setData({
       url: event.url
     })
