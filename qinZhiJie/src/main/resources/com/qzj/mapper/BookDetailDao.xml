@@ -69,7 +69,7 @@
 		<if test="page.queryObj.bookId != null">
 			and tt.bookId = #{page.queryObj.bookId}
 		</if>
-		<if test="page.queryObj.partName != null and page.queryObj.partName != ''">
+		<if test="page.queryObj.partName != null and page.queryObj.partName != '' ">
 			and tt.partName like #{page.queryObj.partName,jdbcType=VARCHAR}
 		</if>
 		<if test="page.queryObj.dirPath != null and page.queryObj.dirPath != ''">

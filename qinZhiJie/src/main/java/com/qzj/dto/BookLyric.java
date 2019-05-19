@@ -4,9 +4,6 @@ import com.qzj.entity.BaseTgEntity;
 
 public class BookLyric extends BaseTgEntity{
 
-	/**
-	 * t_book， 书名
-	 */
 	private static final long serialVersionUID = -2539606269516429059L;
 	
 	private String musicofviolin;
