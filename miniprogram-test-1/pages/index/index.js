@@ -10,12 +10,12 @@ Page({
 
     duration: '500',
     imgUrls: [
-      'http://47.105.212.81:8082/qinzhijie/images/swiper/1.jpg',
-      'http://47.105.212.81:8082/qinzhijie/images/swiper/2.jpg',
-      'http://47.105.212.81:8082/qinzhijie/images/swiper/3.jpg',
-      'http://47.105.212.81:8082/qinzhijie/images/swiper/4.jpg',
-      'http://47.105.212.81:8082/qinzhijie/images/swiper/5.jpg',
-      'http://47.105.212.81:8082/qinzhijie/images/swiper/6.jpg'
+      'http://www.gysp.top:8082/qinzhijie/images/swiper/1.jpg',
+      'http://www.gysp.top:8082/qinzhijie/images/swiper/2.jpg',
+      'http://www.gysp.top:8082/qinzhijie/images/swiper/3.jpg',
+      'http://www.gysp.top:8082/qinzhijie/images/swiper/4.jpg',
+      'http://www.gysp.top:8082/qinzhijie/images/swiper/5.jpg',
+      'http://www.gysp.top:8082/qinzhijie/images/swiper/6.jpg'
     ],
     current: 0,
   },

@@ -1,13 +1,37 @@
-
+<view class='search'>
+  <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
+  <image class="" src='http://www.gysp.top:8082/qinzhijie/images/search/search.PNG' bindtap='query'></image>
+</view>
 <view style='height: 80rpx'></view>
 <view>
-<view></view>
- <block wx:for='{{bookDetailList}}'>
-   <!-- data-*属性在触发事件时获取  -->
-   <view class='singleTrade' hover-class='item-press' bindtap='showPicList' data-id='{{item.id}}'>
-     <view class='a'>
-       <view class='name' style='color: green'>{{item.partName}}</view>
-     </view>
-   </view>
- </block>
+  <view></view>
+  <block wx:for='{{bookDetailList}}'>
+    <!-- data-*属性在触发事件时获取  -->
+    <view class='singleTrade' hover-class='item-press' bindtap='showPicList' data-id='{{item.id}}'>
+      <view class='a'>
+        <view class='name' style='color: green'>{{item.partName}}</view>
+      </view>
+    </view>
+  </block>
+</view>
+<view>
+  <block wx:for='{{queryList}}'>
+    <!-- data-*属性在触发事件时获取  -->
+    <view class='singleTrade' hover-class='item-press' bindtap='' data-id='{{item.id}}'>
+      <view>
+        <view class='name' style='color: green' bindtap='showBookDetail' data-id='{{item.bookId}}'> {{item.bookName}}
+          <block wx:for='{{item.detailList}}'>
+            <!-- data-*属性在触发事件时获取  -->
+            <view class='singleTrade' hover-class='item-press'>
+              <view>
+                <view class='name' style='color: black' bindtap='showPicList' data-id='{{item.id}}'>
+                  <text decode='{{true}}'>&nbsp;&nbsp;&nbsp;</text>{{item.partName}}</view>
+              </view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view style='height: 80rpx'></view>
+  </block>
 </view>

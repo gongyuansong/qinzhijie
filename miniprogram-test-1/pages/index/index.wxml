@@ -3,10 +3,10 @@
 
   <view class='search'>
     <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
-    <image class="" src='http://47.105.212.81:8082/qinzhijie/images/search/search.PNG' bindtap='query'></image>
+    <image class="" src='http://www.gysp.top:8082/qinzhijie/images/search/search.PNG' bindtap='query'></image>
   </view>
 
-  <view style='height: 300rpx'></view>
+  <view style='height: 200rpx'></view>
 
 
 
@@ -24,10 +24,10 @@
       </block>
     </view>
   </view>
-  <view style='height:660rpx'></view>
+  <view style='height:200rpx'></view>
   <view class="weui-footer">
     <view class="weui-footer__links">
-      <navigator url="" class="weui-footer__link">琴之界</navigator>
+      <navigator url="http://www.jiuyigq.com" class="weui-footer__link">琴之界</navigator>
     </view>
     <view class="weui-footer__text">Copyright © 琴之界</view>
   </view>

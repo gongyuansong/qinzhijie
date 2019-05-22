@@ -1,29 +1,19 @@
-<!--logs.wxml-->
-<!-- <view class="container">
-  <block wx:for="{{logs}}" wx:for-item="log">
-    <text class="log-item">{{index + 1}}. {{log}}</text>
-  </block>
-</view> -->
 <view class='search'>
   <input type='text' placeholder='输入你想要的内容' confirm-type='search' value="{{inputValue}}" bindinput='inputBind' bindconfirm='query'></input>
-  <image class="" src='http://47.105.212.81:8082/qinzhijie/images/search/search.PNG' bindtap='query'></image>
+  <image class="" src='http://www.gysp.top:8082/qinzhijie/images/search/search.PNG' bindtap='query'></image>
 </view>
 <view style='height: 80rpx'></view>
 <view>
-<view >历代琴谱</view>
- <block wx:for='{{bookList}}'>
-   <!-- data-*属性在触发事件时获取  -->
-   <view class='singleTrade' hover-class='item-press' catchtap='showBookDetail' data-id='{{item.id}}'>
-     <view class='a'>
-       <view class='name' style='color: green'>{{item.bookName}}</view>
+   <view class='singleTrade' hover-class='item-press' catchtap=''>
+     <view>
+        <view class='name' style='color: green'>{{lyricDetail[0].desc}}</view>
      </view>
    </view>
- </block>
 </view>
 
 <view style='height: 80rpx'></view>
 <view>
-<view>琴曲</view>
+<view></view>
  <block wx:for='{{lyricList}}'>
    <!-- data-*属性在触发事件时获取  -->
    <view class='singleTrade' hover-class='item-press' catchtap='showLyricDetail' data-id='{{item.id}}'>

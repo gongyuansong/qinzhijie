@@ -36,3 +36,7 @@
 .show {
   display: block;
 }
+.textClass{
+font-size: 50rpx;
+color: beige;
+}

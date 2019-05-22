@@ -8,7 +8,7 @@ Page({
   onLoad: function (event) {
     var that = this
     wx.request({
-      url: 'https://127.0.0.1:8081/station/search',
+      url: 'https://www.gysp.top:8081/station/search',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -17,7 +17,6 @@ Page({
         queryStr: event.queryStr
       },
       success: function (res) {
-        var searchData = res.data
         if (res.data.data !== null) {
           that.setData({
             bookList: res.data.data.bookList,
@@ -33,14 +32,11 @@ Page({
     this.setData({
       inputValue: event.detail.value
     })
-    console.log('bindInput' + this.data.inputValue)
-
   },
   query: function(event) {
-    console.log(this.data.inputValue)
     var that = this
     wx.request({
-      url: 'https://127.0.0.1:8081/station/search',
+      url: 'https://www.gysp.top:8081/station/search',
       method: 'POST',
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -49,22 +45,11 @@ Page({
         queryStr: this.data.inputValue
       },
       success: function(res) {
-        console.log(res)
         var searchData = res.data
         if (res.data.data !== null) {
           that.setData({
             bookList: res.data.data.bookList,
             lyricList: res.data.data.lyricList
-          })
-        }
-
-        var pages = getCurrentPages()
-        var curPages = pages[pages.length - 1].route
-        console.log(curPages)
-
-        if ('pages/search/search' !== curPages) {
-          wx.navigateTo({
-            url: '../search/search'
           })
         }
       }
@@ -79,7 +64,7 @@ Page({
   showLyricDetail(e) {
     var id = e.currentTarget.dataset.id
     wx.navigateTo({
-      url: '../lyric/lyric?lyricId=' + id
+      url: '/pages/lyricDetail/lyricDetail?lyricId=' + id
     })
   }
 })

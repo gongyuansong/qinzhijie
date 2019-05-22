@@ -2,11 +2,11 @@ server:
   port: 8081
   ssl:
 #    证书路径
-    key-store: qinzhijie.keystore
-    key-store-type: JKS
-    key-alias: qzj
+    key-store: classpath:2244462_www.gysp.top.pfx
+    key-store-type: PKCS12
+#    key-alias: qzj
 #    配置密码，就是在生成证书的时候输入的密码
-    key-store-password: 123456
+    key-store-password: EoJ5mbP8
 spring:
   application: 
     name: qzj

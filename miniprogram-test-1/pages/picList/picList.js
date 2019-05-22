@@ -3,10 +3,9 @@ Page({
     picList: []
   },
   onLoad: function(event) {
-    console.log(event.bookDetailId + "AAAAAAAAAAAAAAAAAAAAAAAAA")
     var that = this
     wx.request({
-      url: 'https://127.0.0.1:8081/bookDetail/getList',
+      url: 'https://www.gysp.top:8081/bookDetail/getPicList',
       method: 'POST',
       data: {
         currentPage: "1",
@@ -16,20 +15,9 @@ Page({
         }
       },
       success: function(res) {
-        console.log(res)
         if (res.data.data !== null) {
           that.setData({
             picList: res.data.data.dataList[0].allPath.replace(/\\/g,"//").split(";")
-          })
-        }
-  
-        var pages = getCurrentPages()
-        var curPages = pages[pages.length - 1].route
-        console.log(curPages)
-
-        if ('pages/picList/picList' !== curPages) {
-          wx.navigateTo({
-            url: '../picList/picList'
           })
         }
       }

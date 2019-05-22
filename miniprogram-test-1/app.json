@@ -2,17 +2,15 @@
   "pages": [
     "pages/index/index",
     "pages/search/search",
-    "pages/bookDetail/bookDetail",
     "pages/detailList/detailList",
     "pages/picList/picList",
     "pages/pic/pic",
-    "pages/book/book",
-    "pages/lyric/lyric"
+    "pages/lyricDetail/lyricDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "琴之界",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json"
