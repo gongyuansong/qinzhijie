@@ -60,9 +60,9 @@
 	</insert>
 	<select id="getList" resultType="com.qzj.dto.BookDetail"
 		parameterType="com.qzj.dto.PageRequest">
-		SELECT tt.id, tt.bookId,t.bookName, tt.partName,tt.orderNum, tt.dirPath, tt.allPath, tt.createBy,tt.createTime,tt.updateTime, tt.updateBy FROM t_book_detail tt
+		SELECT tt.id, tt.bookId,t.bookName, tt.partName,tt.orderNum, tt.dirPath, tt.allPath, tt.createBy,tt.createTime,tt.updateTime, tt.updateBy, tt.status FROM t_book_detail tt
 		JOIN t_book t ON tt.bookId = t.id
-		WHERE 1 = 1
+		WHERE tt.status = 1 and t.status = 1
 		<if test="page.queryObj.id != null">
 			and tt.id = #{page.queryObj.id}
 		</if>

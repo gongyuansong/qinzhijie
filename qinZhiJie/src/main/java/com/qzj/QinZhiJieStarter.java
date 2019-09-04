@@ -25,7 +25,7 @@ public class QinZhiJieStarter {
 	}
 
 	/**HTTP跳转HTTPS **/
-	 @Bean public Connector connector() { Connector connector = new
+/*	 @Bean public Connector connector() { Connector connector = new
 	 Connector("org.apache.coyote.http11.Http11NioProtocol");
 	 connector.setScheme("http"); connector.setPort(prot);
 	 connector.setSecure(false); connector.setRedirectPort(serverprot); return
@@ -41,5 +41,5 @@ public class QinZhiJieStarter {
 	 collection = new SecurityCollection(); collection.addPattern("/*");
 	 securityConstraint.addCollection(collection);
 	 context.addConstraint(securityConstraint); } };
-	 tomcat.addAdditionalTomcatConnectors(connector); return tomcat; }
+	 tomcat.addAdditionalTomcatConnectors(connector); return tomcat; }*/
 }

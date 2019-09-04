@@ -21,6 +21,16 @@ public class BookDetail extends BaseTgEntity{
 
 	private String allPath;
 	
+	private Integer status;
+	
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	public String getAllPath() {
 		return allPath;
 	}

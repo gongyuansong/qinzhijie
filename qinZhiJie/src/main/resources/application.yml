@@ -1,12 +1,12 @@
 server:
   port: 8081
-  ssl:
+#  ssl:
 #    证书路径
-    key-store: classpath:2244462_www.gysp.top.pfx
-    key-store-type: PKCS12
+#    key-store: classpath:2244462_www.gysp.top.pfx
+#    key-store-type: PKCS12
 #    key-alias: qzj
 #    配置密码，就是在生成证书的时候输入的密码
-    key-store-password: EoJ5mbP8
+#    key-store-password: EoJ5mbP8
 spring:
   application: 
     name: qzj
@@ -20,7 +20,7 @@ spring:
     
   datasource:
     name: carutoo
-    url: jdbc:mysql://localhost:3306/qinzhijie?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://47.105.212.81:3306/qinzhijie_new?useSSL=false&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456
     druid:
