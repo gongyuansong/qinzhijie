@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qzj.dao.WeiXinUserDao">
+	<select id="getList" resultType="com.qzj.dto.WeiXinUser"
+		parameterType="com.qzj.dto.PageRequest">
+		select * from t_weixin_user
+		where 1 = 1
+		limit
+		#{page.startIndex}, #{page.pageSize}
+	</select>
+	<select id="getByOpenId" resultType="com.qzj.dto.WeiXinUser"
+		parameterType="java.lang.String">
+		select * from t_weixin_user
+		where 1 = 1 and openId = #{openId}
+	</select>
+	<select id="getTotal" resultType="java.lang.Long"
+		parameterType="com.qzj.dto.PageRequest">
+		select count(1) from t_weixin_user
+		where 1 = 1
+	</select>
+
+	<insert id="add" parameterType="com.qzj.dto.WeiXinUser">
+		insert into t_weixin_user(
+		<if test="user.city != null and user.city != ''">
+			`city`,
+		</if>
+		<if test="user.nikeName != null and user.nikeName != ''">
+			nikeName,
+		</if>
+
+		<if test="user.province != null and user.province != ''">
+			province,
+		</if>
+
+		<if test="user.avatarUrl != null and user.avatarUrl != ''">
+			`avatarUrl`,
+		</if>
+
+		<if test="user.createBy != null and user.createBy != ''">
+			createBy,
+		</if>
+		<if test="user.createTime != null">
+			createTime,
+		</if>
+		<if test="user.updateTime != null">
+			updateTime,
+		</if>
+		<if test="user.updateBy != null and user.updateBy != ''">
+			updateBy,
+		</if>
+		<if test="user.lastLoginTime != null">
+			lastLoginTime,
+		</if>
+		<if test="user.openId != null and user.openId != ''">
+			`openId`
+		</if>
+		)
+		values(
+		<if test="user.city != null and user.city != ''">
+			#{user.city,jdbcType=VARCHAR},
+		</if>
+		<if test="user.nikeName != null and user.nikeName != ''">
+			#{user.nikeName,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.province != null and user.province != ''">
+			#{user.province,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.avatarUrl != null and user.avatarUrl != ''">
+			#{user.avatarUrl,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.createBy != null and user.createBy != ''">
+			#{user.createBy,jdbcType=VARCHAR},
+		</if>
+		<if test="user.createTime != null">
+			#{user.createTime},
+		</if>
+		<if test="user.updateTime != null">
+			#{user.updateTime},
+		</if>
+		<if test="user.updateBy != null and user.updateBy != ''">
+			#{user.updateBy,jdbcType=VARCHAR},
+		</if>
+		<if test="user.lastLoginTime != null">
+			#{user.lastLoginTime},
+		</if>
+		<if test="user.openId != null and user.openId != ''">
+			#{user.openId,jdbcType=VARCHAR}
+		</if>
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.qzj.dto.WeiXinUser">
+			update t_weixin_user set 
+		<if test="user.city != null and user.city != ''">
+			city = #{user.city,jdbcType=VARCHAR},
+		</if>
+		<if test="user.openId != null and user.openId != ''">
+			openId = #{user.openId,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.nikeName != null and user.nikeName != ''">
+			nikeName = #{user.nikeName,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.province != null and user.province != ''">
+			province = #{user.province,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.avatarUrl != null and user.avatarUrl != ''">
+			avatarUrl = #{user.avatarUrl,jdbcType=VARCHAR},
+		</if>
+
+		<if test="user.createBy != null and user.createBy != ''">
+			createBy = #{user.createBy,jdbcType=VARCHAR},
+		</if>
+		<if test="user.createTime != null">
+			createTime = #{user.createTime},
+		</if>
+		<if test="user.updateTime != null">
+			updateTime = #{user.updateTime},
+		</if>
+		<if test="user.updateBy != null and user.updateBy != ''">
+			updateBy = #{user.updateBy,jdbcType=VARCHAR},
+		</if>
+		<if test="user.lastLoginTime != null">
+			lastLoginTime = #{user.lastLoginTime}
+		</if>
+		where openId = #{user.openId,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete">
+		delete from t_weixin_user where openId in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+        </foreach>   
+	</delete>
+</mapper>
