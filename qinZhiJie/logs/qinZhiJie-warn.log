@@ -1,1 +1,0 @@
-[2019-09-17 09:37:50.517][background-preinit][WARN][org.springframework.http.converter.json.Jackson2ObjectMapperBuilder][771]:For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
