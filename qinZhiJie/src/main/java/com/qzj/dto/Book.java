@@ -23,6 +23,7 @@ public class Book extends BaseTgEntity{
 	
 	private Integer status;
 	
+	private String coverPic;
 	
 	public Integer getStatus() {
 		return status;
@@ -78,5 +79,13 @@ public class Book extends BaseTgEntity{
 
 	public void setDirPath(String dirPath) {
 		this.dirPath = dirPath;
+	}
+
+	public String getCoverPic() {
+		return coverPic;
+	}
+
+	public void setCoverPic(String coverPic) {
+		this.coverPic = coverPic;
 	}
 }
