@@ -9,17 +9,17 @@ public class Music extends BaseTgEntity{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private String name;
+	private String name = "";
 	
 	private Integer musicianId;
 	
-	private String musican;
+	private String musican = "";
 	
-	private String albumName;
+	private String albumName = "";
 	
-	private String mp3Url;
+	private String mp3Url = "";
 	
-	private String cueUrl;
+	private String cueUrl ="";
 
 	public String getName() {
 		return name;

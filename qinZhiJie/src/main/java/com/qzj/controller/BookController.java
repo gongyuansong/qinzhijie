@@ -39,6 +39,7 @@ public class BookController extends BaseTgController {
 	@RequestMapping(value = "/getList", method = RequestMethod.POST)
 	public ResponseData<PageResult<Book>> getList(@RequestBody PageRequest<Book> page, HttpServletRequest request) {
 		ResponseData<PageResult<Book>> result = new ResponseData<PageResult<Book>>();
+		result.setData(bookService.getList(page));
 		result.setCode("200");
 		result.setMessage("Success");
 		return result;

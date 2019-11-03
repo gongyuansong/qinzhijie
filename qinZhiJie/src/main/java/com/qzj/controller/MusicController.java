@@ -81,7 +81,7 @@ public class MusicController extends BaseTgController {
 								String zhuanji = sss.substring(sss.indexOf("-"), sss.lastIndexOf("-")).replace("- ", "")
 										.trim();
 								String quming = sss.substring(sss.lastIndexOf("-")).replace("-", "").trim();
-								String url = "yinyuechuli/" + ss.getFilename();
+								String url = "yinyuechuli/" + zuozhe + "/" + ss.getFilename();
 								Music music = new Music();
 								Date date = new Date();
 								music.setName(quming);
@@ -115,6 +115,15 @@ public class MusicController extends BaseTgController {
 			m.setMp3Url("");
 			m.setCreateTime(null);
 			m.setUpdateTime(null);
+			if(m.getAlbumName() != null && m.getAlbumName().length() > 7) {
+				m.setAlbumName(m.getAlbumName().substring(0, 7).concat("..."));
+			}
+			if(m.getMusican() != null && m.getMusican().length() > 7) {
+				m.setMusican(m.getMusican().substring(0, 7).concat("..."));
+			}
+			if(m.getName() != null && m.getName().length() > 7) {
+				m.setName(m.getName().substring(0, 7).concat("..."));
+			}
 		}
 		result.setData(re);
 		result.setCode("200");
