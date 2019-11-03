@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qzj.dao.MusicDao">
+	<select id="getList" resultType="com.qzj.dto.Music"
+		parameterType="com.qzj.dto.PageRequest">
+		select * from t_music
+		where 1 = 1
+		<if test="page.queryObj.name != null and page.queryObj.name != ''">
+			and name like CONCAT('%','${page.queryObj.name}','%')
+		</if> 
+		<if test="page.queryObj.musican != null and page.queryObj.musican != ''">
+			and musican like CONCAT('%','${page.queryObj.musican}','%')
+		</if> 
+		<if test="page.queryObj.id != null">
+			and id = ${page.queryObj.id}
+		</if>
+		limit
+		#{page.startIndex}, #{page.pageSize}
+	</select>
+	<select id="getTotal" resultType="java.lang.Long"
+		parameterType="com.qzj.dto.PageRequest">
+		select count(1) from t_music
+		where 1 = 1
+		<if test="page.queryObj.name != null and page.queryObj.name != ''">
+			and name like CONCAT('%','${page.queryObj.name}','%')
+		</if> 
+		<if test="page.queryObj.musican != null and page.queryObj.musican != ''">
+			and musican like CONCAT('%','${page.queryObj.musican}','%')
+		</if>
+		<if test="page.queryObj.id != null">
+			and id = ${page.queryObj.id}
+		</if> 
+	</select>
+
+	<insert id="add" parameterType="com.qzj.dto.Music">
+		insert into t_music(
+		<if test="music.name != null and music.name != ''">
+			`name`,
+		</if>
+		<if test="music.musicianId != null">
+			musicianId,
+		</if>
+
+		<if test="music.musican != null and music.musican != ''">
+			musican,
+		</if>
+
+		<if test="music.albumName != null and music.albumName != ''">
+			`albumName`,
+		</if>
+		<if test="music.mp3Url != null and music.mp3Url != ''">
+			`mp3Url`,
+		</if>
+		<if test="music.cueUrl != null and music.cueUrl != ''">
+			`cueUrl`,
+		</if>
+		<if test="music.createBy != null and music.createBy != ''">
+			createBy,
+		</if>
+		<if test="music.createTime != null">
+			createTime,
+		</if>
+		<if test="music.updateTime != null">
+			updateTime,
+		</if>
+		<if test="music.updateBy != null and music.updateBy != ''">
+			updateBy
+		</if>
+		
+		)
+		values(
+		<if test="music.name != null and music.name != ''">
+			#{music.name,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.musicianId != null">
+			#{music.musicianId,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="music.musican != null and music.musican != ''">
+			#{music.musican,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.albumName != null and music.albumName != ''">
+			#{music.albumName,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.mp3Url != null and music.mp3Url != ''">
+			#{music.mp3Url,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.cueUrl != null and music.cueUrl != ''">
+			#{music.cueUrl,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.createBy != null and music.createBy != ''">
+			#{music.createBy,jdbcType=VARCHAR},
+		</if>
+		<if test="music.createTime != null">
+			#{music.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="music.updateTime != null">
+			#{music.updateTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="music.updateBy != null and music.updateBy != ''">
+			#{music.updateBy,jdbcType=VARCHAR}
+		</if>
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.qzj.dto.Music">
+			update t_music set 
+		<if test="music.name != null and music.name != ''">
+			name = #{music.name,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.musicianId != null">
+			musicianId = #{music.musicianId,jdbcType=VARCHAR},
+		</if>
+		
+		<if test="music.musican != null and music.musican != ''">
+			musican = #{music.musican,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.albumName != null and music.albumName != ''">
+			albumName = #{music.albumName,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.mp3Url != null and music.mp3Url != ''">
+			mp3Url = #{music.mp3Url,jdbcType=VARCHAR},
+		</if>
+
+		<if test="music.cueUrl != null and music.cueUrl != ''">
+			cueUrl = #{music.cueUrl,jdbcType=VARCHAR},
+		</if>
+		<if test="music.createBy != null and music.createBy != ''">
+			createBy = #{music.createBy,jdbcType=VARCHAR},
+		</if>
+		<if test="music.createTime != null">
+			createTime = #{music.createTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="music.updateTime != null">
+			updateTime = #{music.updateTime,jdbcType=TIMESTAMP},
+		</if>
+		<if test="music.updateBy != null and music.updateBy != ''">
+			updateBy = #{music.updateBy,jdbcType=VARCHAR}
+		</if>
+		where id = #{music.id,jdbcType=VARCHAR}
+	</update>
+	<delete id="delete">
+		delete from t_music where id in
+		<foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                #{item}       
+        </foreach>   
+	</delete>
+</mapper>
