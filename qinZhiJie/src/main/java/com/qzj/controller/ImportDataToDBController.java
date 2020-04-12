@@ -79,4 +79,16 @@ public class ImportDataToDBController {
 		return result;
 	}
 	
+	
+	
+	//最新的bookdetail 导入  20200408
+	@RequestMapping(value = "/insertBookDetail", method = RequestMethod.GET)
+	public ResponseData<PageResult<String>> insertBookDetail(){
+		ResponseData<PageResult<String>> result = new ResponseData<PageResult<String>>();
+		importService.insertBookDetail();
+		result.setCode("200");
+		result.setMessage("success");
+		return result;
+	}
+	
 }

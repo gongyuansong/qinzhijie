@@ -18,11 +18,21 @@ public class BookDetail extends BaseTgEntity{
 	private String dirPath;
 	
 	private Integer orderNum;
+	
+	private Integer subOrderNum;
 
 	private String allPath;
 	
 	private Integer status;
 	
+	public Integer getSubOrderNum() {
+		return subOrderNum;
+	}
+
+	public void setSubOrderNum(Integer subOrderNum) {
+		this.subOrderNum = subOrderNum;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -78,4 +88,13 @@ public class BookDetail extends BaseTgEntity{
 	public void setOrderNum(Integer orderNum) {
 		this.orderNum = orderNum;
 	}
+
+	@Override
+	public String toString() {
+		return "BookDetail [bookId=" + bookId + ", bookName=" + bookName + ", partName=" + partName + ", dirPath="
+				+ dirPath + ", orderNum=" + orderNum + ", subOrderNum=" + subOrderNum + ", allPath=" + allPath
+				+ ", status=" + status + "]";
+	}
+	
+	
 }

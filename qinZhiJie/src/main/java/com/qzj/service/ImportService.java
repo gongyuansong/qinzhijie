@@ -8,7 +8,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import com.jcraft.jsch.ChannelExec;
+import com.jcraft.jsch.ChannelSftp;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+import com.jcraft.jsch.SftpATTRS;
+import com.jcraft.jsch.SftpException;
 import com.qzj.commos.Constant;
 import com.qzj.dao.BookDao;
 import com.qzj.dao.BookDetailDao;
@@ -708,31 +717,31 @@ public class ImportService {
 			e.printStackTrace();
 		}
 	}
-	
-	//  将历代琴谱的每个图片都写到bookDetail的allPath字段中
-		public void importAllPath() {
-			PageRequest<BookDetail> page = new PageRequest<BookDetail>();
-			BookDetail bb = new BookDetail();
-			page.setQueryObj(bb);
-			long total = bookDetailDao.getTotal(page);
-			page.setPageSize(total);
-			List<BookDetail> list = bookDetailDao.getList(page);
-			for(BookDetail b : list) {
-				StringBuilder sb = new StringBuilder();
-				String path = b.getDirPath();
-				File f = new File(basePath + path);
-				if(f.isDirectory()) {
-					String[] l = f.list();
-					for(String s : l) {
-						sb.append(path + "\\" +  s + ";");
-					}
-					if(sb.length() > 0) {
-						b.setAllPath(sb.substring(0, sb.length()-1));
-						bookDetailDao.update(b);
-					}
+
+	// 将历代琴谱的每个图片都写到bookDetail的allPath字段中
+	public void importAllPath() {
+		PageRequest<BookDetail> page = new PageRequest<BookDetail>();
+		BookDetail bb = new BookDetail();
+		page.setQueryObj(bb);
+		long total = bookDetailDao.getTotal(page);
+		page.setPageSize(total);
+		List<BookDetail> list = bookDetailDao.getList(page);
+		for (BookDetail b : list) {
+			StringBuilder sb = new StringBuilder();
+			String path = b.getDirPath();
+			File f = new File(basePath + path);
+			if (f.isDirectory()) {
+				String[] l = f.list();
+				for (String s : l) {
+					sb.append(path + "\\" + s + ";");
+				}
+				if (sb.length() > 0) {
+					b.setAllPath(sb.substring(0, sb.length() - 1));
+					bookDetailDao.update(b);
 				}
 			}
 		}
+	}
 
 	public void ipmortBookLyric() throws IOException {
 		try {
@@ -822,7 +831,7 @@ public class ImportService {
 							} catch (Exception e) {
 								content = WordUtil.readWord2007(url);
 							}
-							if(StringUtils.isBlank(content)) {
+							if (StringUtils.isBlank(content)) {
 								System.out.println("这个url：（" + url + "）读取有误");
 								continue;
 							}
@@ -830,8 +839,9 @@ public class ImportService {
 							System.out.println(url);
 							while (true) {
 								if (content.contains("\"_blank\"")) {
-									content = content.replace(
-											content.substring(content.indexOf(""), content.indexOf("") + 1), "")
+									content = content
+											.replace(content.substring(content.indexOf(""), content.indexOf("") + 1),
+													"")
 											.replace("", "");
 								} else {
 									break;
@@ -851,6 +861,240 @@ public class ImportService {
 					}
 				}
 			}
+		}
+	}
+
+	/**
+	 * 这里最新的bookDetal 的数据导入
+	 * 
+	 * 
+	 */
+	public void insertBookDetail() {
+		ChannelSftp sftp = null;
+		Session session = null;
+		try {
+			String host = "120.79.158.236";
+			int port = 22;
+			String username = "root";
+			String password = "gys_123456";
+			// 创建JSch
+			JSch jSch = new JSch();
+			// 获取session
+			java.util.Properties prop = new java.util.Properties();
+			prop.put("StrictHostKeyChecking", "no");
+			session = jSch.getSession(username, host, port);
+			session.setConfig(prop);
+			session.setPassword(password);
+
+			// 启动连接
+			session.connect();
+			sftp = (ChannelSftp) session.openChannel("sftp");
+
+			sftp.connect();
+			// 获得书籍目录
+			Vector vector = sftp.ls("//root//qinpuchongchuan");
+			Iterator iterator = vector.iterator();
+			while (iterator.hasNext()) {
+				ChannelSftp.LsEntry file = (ChannelSftp.LsEntry) iterator.next();
+				String bookName = file.getFilename();
+				if (bookName.equals(".") || bookName.equals("..") || bookName.equals(".wps")) {
+					continue;
+				}
+				String bookpath = "/root/qinpuchongchuan/" + bookName;
+				System.out.println("--------------------------");
+				System.out.println("@@@@@@@@@@@@@@@@" + bookpath);
+
+				// 获取boodetail目录
+
+				Vector boodetailvector = sftp.ls(bookpath);
+				Iterator boodetailiterator = boodetailvector.iterator();
+				while (boodetailiterator.hasNext()) {
+					ChannelSftp.LsEntry boodetailfile = (ChannelSftp.LsEntry) boodetailiterator.next();
+					String bookdetailfileName = boodetailfile.getFilename();
+					if (bookdetailfileName.equals(".") || bookdetailfileName.equals("..")
+							|| bookdetailfileName.endsWith(".wps") || bookdetailfileName.endsWith(".db") || bookdetailfileName.endsWith(".psd")) {
+						continue;
+					}
+					String boodetailfilepath = "/root/qinpuchongchuan/" + bookName + "/" + bookdetailfileName;
+
+					// 获取 章节名字
+					String zhangjiemingzhi = bookdetailfileName.substring(bookdetailfileName.lastIndexOf("-") + 1,
+							bookdetailfileName.length());
+					//TODO 这里乱码 需要处理
+					if("绒𧯞法".contains(zhangjiemingzhi)) {
+						continue;
+					}
+					// 获得排序order 和 sub 排序order
+					char[] array = bookdetailfileName.toCharArray();
+					char lastnumber = 'a';
+					for (int i = 0; i < array.length; i++) {
+						int num = (int) array[i];
+						if (num > 47 && num < 58) {
+							lastnumber = array[i];
+						}
+					}
+					//TODO
+					if(bookdetailfileName.contains("太古正音琴经")) {
+						continue;
+						
+					}
+					
+					System.out.println("qqss:" + bookdetailfileName);
+					String orders = bookdetailfileName.substring(0, bookdetailfileName.lastIndexOf(lastnumber) + 1);
+					System.out.println("aaa: " + orders);
+					String[] orderArray = new String[]{};	
+					if(orders.contains("-")) {
+						orderArray = orders.split("-");	
+					}else if(orders.contains(".")){
+						orderArray = orders.split(".");	
+					}else {
+						orderArray = orders.split("@");	
+					}
+					if(orderArray.length > 0){
+						System.out.println("www1ww:" + orderArray[0]);						
+					}
+					if(orderArray.length > 1){
+						System.out.println("www2ww:" + orderArray[1]);						
+					}
+					//获取所有章节的图片url集合
+					Vector urlvector = sftp.ls(boodetailfilepath);
+					Iterator urlIterator = urlvector.iterator();
+					StringBuffer sb = new StringBuffer();
+					while (urlIterator.hasNext()) {
+						ChannelSftp.LsEntry url = (ChannelSftp.LsEntry) urlIterator.next();
+						String u = url.getFilename();
+						if (u.equals(".") || u.equals("..")
+								|| u.endsWith(".wps") || u.endsWith(".db")) {
+							continue;
+						}
+						sb.append(boodetailfilepath).append("/").append(u).append(";");
+					}
+					String urlarray = "";
+					if(sb.length() != 0) {
+						urlarray = sb.substring(0, sb.length()-1);
+					}
+					//插入数据库
+					HashMap<String, Object> m = new HashMap<>();
+					m.put("bookName", bookName.trim());
+					List<Book> l = bookDao.selectList(m);
+					Date date = new Date();
+					BookDetail bookDetail = new BookDetail();
+					if(l.size() != 1) {
+						System.out.println("这本书有问题：" + bookName);
+					}else {
+						bookDetail.setBookId(l.get(0).getId().intValue());
+					}
+					bookDetail.setDirPath(boodetailfilepath);
+					bookDetail.setPartName(zhangjiemingzhi);
+					if(orderArray.length > 0){
+						bookDetail.setOrderNum(new Integer(orderArray[0]));				
+					}
+					if(orderArray.length > 1){
+						
+						//获取子order
+						Integer suboOrder = 0;
+						for(int i = 1 ; i< orderArray.length ; i ++ ) {
+							try {
+								System.out.println(orderArray[i]);
+								suboOrder = new Integer(orderArray[i]);
+								break;
+							}catch(Exception e) {
+							}
+						}
+						
+						bookDetail.setSubOrderNum(suboOrder);						
+					}
+					bookDetail.setAllPath(urlarray);
+					bookDetail.setUpdateBy(Constant.SYS_USER);
+					bookDetail.setCreateBy(Constant.SYS_USER);
+					bookDetail.setUpdateTime(date);
+					bookDetail.setCreateTime(date);
+					bookDetail.setStatus(1);
+					//System.out.println("----" + bookDetail);
+					bookDetailDao.add(bookDetail);
+					
+						
+				}
+				System.out.print("--------------------------");
+			}
+
+			// getSubFile("//root//qinpuchongchuan", sftp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			if (sftp != null) {
+				sftp.disconnect();
+			}
+			if (session != null) {
+				session.disconnect();
+			}
+		}
+
+		System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+	}
+
+	public static void getSubFile(String pathath, ChannelSftp sftp) throws Exception {
+
+		Vector vector = sftp.ls(pathath);
+		Iterator iterator = vector.iterator();
+		while (iterator.hasNext()) {
+			ChannelSftp.LsEntry file = (ChannelSftp.LsEntry) iterator.next();
+			String fileName = file.getFilename();
+			if (fileName.equals(".") || fileName.equals("..") || fileName.equals(".wps")) {
+				continue;
+			}
+			if (file.getAttrs().isDir()) {
+				getSubFile(pathath + "//" + fileName + "//", sftp);
+				System.out.println(" --" + pathath + fileName);
+			} else {
+				System.out.println(" ------------" + pathath + "//" + fileName);
+			}
+		}
+
+	}
+
+	public void ipmortRemotePic() throws IOException {
+
+		// 先链接linux服务器
+
+		String path = "01资料馆\\02指法词典\\谱字释义";
+		File f = new File(basePath + path);
+		if (f != null && f.isDirectory()) {
+
+		}
+	}
+
+	public static void main(String[] args) {
+		try {
+			String bookdetailfileName = "040琴谱合璧一----杨伦像";
+			// 获得排序order 和 sub 排序order
+			char[] array = bookdetailfileName.toCharArray();
+			char lastnumber = 'a';
+			for (int i = 0; i < array.length; i++) {
+				int num = (int) array[i];
+				if (num > 47 && num < 58) {
+					lastnumber = array[i];
+				}
+			}
+			String orders = bookdetailfileName.substring(0, bookdetailfileName.lastIndexOf(lastnumber) + 1);
+			System.out.println(orders);
+			String[] orderArray = new String[]{};	
+			if(orders.contains("-")) {
+				orderArray = orders.split("-");	
+			}else if(orders.contains(".")){
+				orderArray = orders.split(".");	
+			}else {
+				orderArray = orders.split("@");	
+			}
+			if(orderArray.length > 0){
+				System.out.println("wwwww:" + orderArray[0]);						
+			}
+			if(orderArray.length > 1){
+				System.out.println("wwwww:" + orderArray[1]);						
+			}
+			//getConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

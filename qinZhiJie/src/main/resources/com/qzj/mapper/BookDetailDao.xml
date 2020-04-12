@@ -14,10 +14,18 @@
 			dirPath,
 		</if>
 
+		<if test="bookDetail.allPath != null and bookDetail.allPath != ''">
+			allPath,
+		</if>
 		<if test="bookDetail.orderNum != null">
 			orderNum,
 		</if>
-		
+		<if test="bookDetail.subordernum != null">
+			subOrderNum,
+		</if>
+		<if test="bookDetail.status != null">
+			status,
+		</if>
 		<if test="bookDetail.createBy != null and bookDetail.createBy != ''">
 			createBy,
 		</if>
@@ -41,8 +49,17 @@
 		<if test="bookDetail.dirPath != null and bookDetail.dirPath != ''">
 			#{bookDetail.dirPath,jdbcType=VARCHAR},
 		</if>
-		<if test="bookDetail.orderNum != null and bookDetail.orderNum != ''">
+		<if test="bookDetail.allPath != null and bookDetail.allPath != ''">
+			#{bookDetail.allPath,jdbcType=VARCHAR},
+		</if>
+		<if test="bookDetail.orderNum != null">
 			#{bookDetail.orderNum},
+		</if>
+		<if test="bookDetail.subOrderNum != null">
+			#{bookDetail.subOrderNum},
+		</if>
+		<if test="bookDetail.status != null">
+			#{bookDetail.status},
 		</if>
 		<if test="bookDetail.createBy != null and bookDetail.createBy != ''">
 			#{bookDetail.createBy,jdbcType=VARCHAR},
