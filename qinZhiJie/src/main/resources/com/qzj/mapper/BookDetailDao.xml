@@ -92,7 +92,7 @@
 		<if test="page.queryObj.dirPath != null and page.queryObj.dirPath != ''">
 			and tt.dirPath like #{page.queryObj.dirPath,jdbcType=VARCHAR}
 		</if>
-		order by orderNum asc
+		order by  ordernum ASC ,subordernum ASC
 		limit
 		#{page.startIndex}, #{page.pageSize}
 	</select>
